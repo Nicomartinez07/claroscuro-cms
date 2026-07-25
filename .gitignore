@@ -1,0 +1,55 @@
+############################
+# OS X
+############################
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+._*
+
+############################
+# Node.js
+############################
+node_modules
+.node_history
+
+############################
+# Strapi
+############################
+.env
+.env.test
+.env.production
+license.txt
+exports
+.cache
+.strapi
+dist
+build
+.strapi-updater.json
+.strapi-cloud.json
+
+############################
+# Database
+############################
+*.db*
+.tmp
+data
+
+############################
+# Logs
+############################
+*.log
+logs
+pids
+results
+
+############################
+# Misc
+############################
+public/uploads/*
+!public/uploads/.gitkeep
+ssl
+.idea
+nbproject

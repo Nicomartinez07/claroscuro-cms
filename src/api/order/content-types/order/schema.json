@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order",
+    "description": "Registro de órdenes de Mercado Pago. Creado/actualizado solo por el backend (Next.js) vía API Token — nunca por el rol Público."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "external_reference": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "customer_name": {
+      "type": "string",
+      "required": true
+    },
+    "customer_phone": {
+      "type": "string",
+      "required": true
+    },
+    "customer_email": {
+      "type": "email",
+      "required": true
+    },
+    "items": {
+      "type": "json",
+      "required": true,
+      "description": "Snapshot de los productos comprados: [{ slug, title, price, qty }]"
+    },
+    "total": {
+      "type": "decimal",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "approved", "rejected", "in_process", "cancelled", "refunded"],
+      "default": "pending",
+      "required": true
+    },
+    "mp_preference_id": {
+      "type": "string"
+    },
+    "mp_payment_id": {
+      "type": "string"
+    },
+    "mp_status_detail": {
+      "type": "string"
+    },
+    "payment_method": {
+      "type": "string"
+    }
+  }
+}

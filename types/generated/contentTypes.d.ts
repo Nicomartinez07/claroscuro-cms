@@ -521,6 +521,48 @@ export interface ApiFaqItemFaqItem extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
+  collectionName: 'orders';
+  info: {
+    description: 'Registro de \u00F3rdenes de Mercado Pago. Creado/actualizado solo por el backend (Next.js) v\u00EDa API Token \u2014 nunca por el rol P\u00FAblico.';
+    displayName: 'Order';
+    pluralName: 'orders';
+    singularName: 'order';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    customer_email: Schema.Attribute.Email & Schema.Attribute.Required;
+    customer_name: Schema.Attribute.String & Schema.Attribute.Required;
+    customer_phone: Schema.Attribute.String & Schema.Attribute.Required;
+    external_reference: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    items: Schema.Attribute.JSON & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
+      Schema.Attribute.Private;
+    mp_payment_id: Schema.Attribute.String;
+    mp_preference_id: Schema.Attribute.String;
+    mp_status_detail: Schema.Attribute.String;
+    payment_method: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['pending', 'approved', 'rejected', 'in_process', 'cancelled', 'refunded']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'pending'>;
+    total: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
@@ -1283,6 +1325,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::contact-submission.contact-submission': ApiContactSubmissionContactSubmission;
       'api::faq-item.faq-item': ApiFaqItemFaqItem;
+      'api::order.order': ApiOrderOrder;
       'api::page.page': ApiPagePage;
       'api::process-step.process-step': ApiProcessStepProcessStep;
       'api::product-category.product-category': ApiProductCategoryProductCategory;
